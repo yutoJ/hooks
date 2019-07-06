@@ -1,6 +1,8 @@
 import React, { useState, useReducer } from 'react';
-import { Typography, Input, Form, Button, Table } from 'antd';
+import { Typography, Input, Form, Button } from 'antd';
 import reducer from './reducers/events'
+import Events from './components/events'
+import AppContext from './contexts/AppContext'
 import './App.css';
 
 const { Title } = Typography;
@@ -45,33 +47,8 @@ const App = (props) => {
     },
   };
 
-  const columns = [
-    {
-      title: 'Id',
-      dataIndex: 'id',
-      key: 'id',
-    },
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-    },
-    {
-      title: 'Body',
-      dataIndex: 'body',
-      key: 'body',
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (record) => (
-        <Button type="warning" htmlType="submit" onClick={() => dispatch({type: 'DELETE_EVENT', id: record.id})}>Delete</Button>
-      ),
-    }
-  ];
-
   return (
-    <div>
+    <AppContext.Provider value={{ state, dispatch }}>
       <>
         <Title>Create Event</Title>
         <Form {...formItemLayout}>
@@ -87,9 +64,10 @@ const App = (props) => {
           </Form.Item>
         </Form>
         <Title>Events</Title>
-        <Table dataSource={state} columns={columns} />;
+        <Events/>;
+        {/* <Table dataSource={state} columns={columns} />; */}
       </>
-    </div>
+    </AppContext.Provider>
   );
 }
 
