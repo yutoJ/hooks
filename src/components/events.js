@@ -35,7 +35,7 @@ const Events = () => {
   return (
     <div>
       <>
-        <Table dataSource={state} columns={columns} />;
+        <Table dataSource={state.events} columns={columns} />;
       </>
     </div>
   );

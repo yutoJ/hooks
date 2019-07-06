@@ -1,6 +1,6 @@
 import React, { useState, useReducer } from 'react';
 import { Typography, Input, Form, Button } from 'antd';
-import reducer from './reducers/events'
+import reducer from './reducers'
 import Events from './components/events'
 import AppContext from './contexts/AppContext'
 import './App.css';
@@ -8,7 +8,10 @@ import './App.css';
 const { Title } = Typography;
 
 const App = (props) => {
-  const [state, dispatch] = useReducer(reducer, [])
+  const initialState = {
+    events: []
+  }
+  const [state, dispatch] = useReducer(reducer, initialState)
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
 
