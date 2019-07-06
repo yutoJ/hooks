@@ -2,6 +2,7 @@ import React, { useState, useReducer } from 'react';
 import { Typography, Input, Form, Button } from 'antd';
 import reducer from './reducers'
 import Events from './components/events'
+import OperationLogs from './components/operationLogs'
 import AppContext from './contexts/AppContext'
 import './App.css';
 
@@ -9,7 +10,8 @@ const { Title } = Typography;
 
 const App = (props) => {
   const initialState = {
-    events: []
+    events: [],
+    operationLogs: []
   }
   const [state, dispatch] = useReducer(reducer, initialState)
   const [title, setTitle] = useState('')
@@ -21,6 +23,11 @@ const App = (props) => {
       type: 'CREATE_EVENT',
       title,
       body
+    })
+    dispatch({
+      type: 'ADD_OPERATION_LOG',
+      description: 'Event created',
+      operatedAt: String(new Date())
     })
     setTitle('')
     setBody('')
@@ -67,7 +74,9 @@ const App = (props) => {
           </Form.Item>
         </Form>
         <Title>Events</Title>
-        <Events/>;
+        <Events/>
+        <Title>Logs</Title>
+        <OperationLogs/>;
         {/* <Table dataSource={state} columns={columns} />; */}
       </>
     </AppContext.Provider>
